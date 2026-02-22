@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="OnlineEdu.API/OnlineEdu.API.csproj" />
+  <Project Path="OnlineEdu.Business/OnlineEdu.Business.csproj" />
+  <Project Path="OnlineEdu.DataAccess/OnlineEdu.DataAccess.csproj" />
+  <Project Path="OnlineEdu.DTO/OnlineEdu.DTO.csproj" />
+  <Project Path="OnlineEdu.Entity/OnlineEdu.Entity.csproj" />
+  <Project Path="OnlineEdu.WebUI/OnlineEdu.WebUI.csproj" Id="bbe67508-7969-4dfc-82a4-daf43095d1d4" />
+</Solution>
