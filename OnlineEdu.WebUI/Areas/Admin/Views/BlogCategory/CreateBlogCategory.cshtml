@@ -1,0 +1,14 @@
+﻿@model CreateBlogCategoryDto
+@{
+    ViewData["Title"] = "Blog Kategori Ekleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<form method="post">
+
+    <label>Blog Kategori Adı</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <br />
+    
+    <button class="btn btn-outline-primary">Kaydet</button>
+</form>
+

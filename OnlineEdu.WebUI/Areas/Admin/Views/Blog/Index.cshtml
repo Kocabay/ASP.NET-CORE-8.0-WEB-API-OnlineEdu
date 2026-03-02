@@ -1,0 +1,61 @@
+﻿@model List<ResultBlogDto>
+@{
+    ViewData["Title"] = "Blog Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Blog </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>@count</td>
+            <td>@item.Title</td>
+            <td>
+                <button onclick="deleteBlog(@item.BlogId)" class="btn btn-danger">Sil</button>
+                <a asp-area="Admin" asp-controller="Blog" asp-action="UpdateBlog" asp-route-id="@item.BlogId" class="btn btn-primary">Güncelle</a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+
+<a asp-area="Admin" asp-controller="Blog" asp-action="CreateBlog" class="btn btn-success">Yeni Blog Ekle</a>
+
+
+<script>
+
+      function deleteBlog(id){
+      Swal.fire({
+        title: "Silmek İstediğine Emin Misiniz ?",
+        text: "Bu işlemi geri alamazsınız !",
+        icon: "warning",
+        width: 450,
+        showCancelButton: true,
+        confirmButtonText: "Evet, Sil!",
+        cancelButtonText: "İptal"
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          Swal.fire({
+            title: "Silindi!",
+            text: "Silme işlemi başarıyla gerçekleşti.",
+            icon: "success",
+             width: 450,
+            confirmButtonText: "Tamam"
+          }).then(() => {
+            window.location.href = "/Admin/Blog/DeleteBlog/" + id;
+          });
+
+        }
+      });
+    }
+</script>
+
+
