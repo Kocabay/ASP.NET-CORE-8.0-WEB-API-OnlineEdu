@@ -8,13 +8,14 @@ namespace OnlineEdu.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogsController(IGenericService<Blog> _blogService, IMapper _mapper) : ControllerBase
+    public class BlogsController(IMapper _mapper,IBlogService _blogService) : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
         {
-            var values = _blogService.TGetList();
-            return Ok(values);
+            var values = _blogService.TGetBlogsWithCategories();
+            var blogs = _mapper.Map<List<ResultBlogDto>>(values);
+            return Ok(blogs);
         }
 
         [HttpGet("{id}")]
@@ -31,7 +32,7 @@ namespace OnlineEdu.API.Controllers
             return Ok("Blog alanı silindi");
         }
         [HttpPost]
-        public IActionResult Create(CreateBlogDto createBlogDto)
+        public async Task<IActionResult> Create(CreateBlogDto createBlogDto)
         {
             var newValue = _mapper.Map<Blog>(createBlogDto);
             _blogService.TCreate(newValue);

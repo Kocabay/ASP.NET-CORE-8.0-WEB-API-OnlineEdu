@@ -15,7 +15,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 
         public async Task CategoryDropDown()
         {
-            var categoryList = await _client.GetFromJsonAsync<List<ResultBlogCategoryDto>>("categories");
+            var categoryList = await _client.GetFromJsonAsync<List<ResultBlogCategoryDto>>("blogcategories");
             List<SelectListItem> categories = (from x in categoryList
                                                select new SelectListItem
                                                {
@@ -29,7 +29,6 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            _client.BaseAddress = new Uri("https://localhost:7029/api/");
             var values = await _client.GetFromJsonAsync<List<ResultBlogDto>>("Blogs");
             return View(values);
         }
@@ -41,7 +40,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> CreateBlog()
         {
-           await CategoryDropDown();
+            await CategoryDropDown();
             return View();
         }
 
@@ -64,6 +63,7 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> UpdateBlog(int id)
         {
+            await CategoryDropDown();
             var values = await _client.GetFromJsonAsync<UpdateBlogDto>($"Blogs/{id}");
             return View(values);
         }

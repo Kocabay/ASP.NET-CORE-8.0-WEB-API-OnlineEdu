@@ -1,8 +1,26 @@
 ﻿@model CreateBlogDto
 @{
-    ViewData["Title"] = "Blog Ekleme";
+    ViewData["Title"] = "Yeni Blog Ekleme";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>CreateBlog</h1>
+<form method="post">
+
+    <label>Blog Başlığı</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <br />
+    <label>Image Url</label>
+    <input type="text" asp-for="ImageUrl" class="form-control" />
+    <br />
+    <label>Blog Kategorisi</label>
+    <select type="text" asp-items="@ViewBag.categories" asp-for="BlogCategoryId" class="form-control" >
+        <option>Kategori Seçin</option>
+    </select>
+    <br />
+    <label>Blog İçerigi</label>
+    <textarea type="text" asp-for="Content" class="form-control" rows="5"></textarea>
+    <br />
+
+    <button class="btn btn-outline-primary">Kaydet</button>
+</form>
 

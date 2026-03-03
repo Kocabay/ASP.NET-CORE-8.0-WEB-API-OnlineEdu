@@ -1,6 +1,6 @@
-﻿@model List<ResultBlogDto>
+﻿@model List<ResultContactDto>
 @{
-    ViewData["Title"] = "Blog Listesi";
+    ViewData["Title"] = "İletişim Bilgileri";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
@@ -8,10 +8,10 @@
 <table class="table table-hover">
     <tr>
         <th>#</th>
-        <th>Resim</th>
-        <th>Blog </th>
-        <th>Tarih</th>
-        <th>Kategori</th>
+        <th>Adres</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Harita</th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -19,25 +19,25 @@
         count++;
         <tr>
             <td>@count</td>
-            <td><img src="@item.ImageUrl" style="height:75px;width:75px"/></td>
-            <td>@item.Title</td>
-            <td>@item.BlogDate.ToShortDateString()</td>
-            <td>@item.BlogCategory.Name</td>
+            <td>@item.Address</td>
+            <td>@item.Phone</td>
+            <td>@item.Email</td>
+            <td><a href="@item.MapUrl" target="_blank">HaritaUrl</a></td>
             <td>
-                <button onclick="deleteBlog(@item.BlogId)" class="btn btn-danger">Sil</button>
-                <a asp-area="Admin" asp-controller="Blog" asp-action="UpdateBlog" asp-route-id="@item.BlogId" class="btn btn-primary">Güncelle</a>
+                <button onclick="deleteContact(@item.ContactId)" class="btn btn-danger">Sil</button>
+                <a asp-area="Admin" asp-controller="Contact" asp-action="UpdateContact" asp-route-id="@item.ContactId" class="btn btn-primary">Güncelle</a>
             </td>
         </tr>
     }
 </table>
 <br />
 
-<a asp-area="Admin" asp-controller="Blog" asp-action="CreateBlog" class="btn btn-success">Yeni Blog Ekle</a>
+<a asp-area="Admin" asp-controller="Contact" asp-action="CreateContact" class="btn btn-success">Yeni İletişim Ekle</a>
 
 
 <script>
 
-      function deleteBlog(id){
+      function deleteContact(id){
       Swal.fire({
         title: "Silmek İstediğine Emin Misiniz ?",
         text: "Bu işlemi geri alamazsınız !",
@@ -56,12 +56,11 @@
              width: 450,
             confirmButtonText: "Tamam"
           }).then(() => {
-            window.location.href = "/Admin/Blog/DeleteBlog/" + id;
+            window.location.href = "/Admin/Contact/DeleteContact/" + id;
           });
 
         }
       });
     }
 </script>
-
 
