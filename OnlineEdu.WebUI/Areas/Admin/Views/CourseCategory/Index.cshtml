@@ -1,0 +1,75 @@
+﻿@model List<ResultCourseCategoryDto>
+@{
+    ViewData["Title"] = "Kurs Kategori Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Kurs Kategori Adı</th>
+        <th>Açıklama</th>
+        <th>Gösterilme Durumu</th>
+        <th>Ana Sayfa</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>@count</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@(item.IsShown ?"Gösteriliyor":"Gösterilmiyor")</td>
+            <td>
+                @if (item.IsShown == true)
+                {
+
+                    <a asp-action="DontShowOnHome" asp-controller="CourseCategory" asp-area="Admin" asp-route-id="@item.CourseCategoryId" class="btn btn-outline-secondary"> Gösterme</a>
+                }
+                else
+                {
+                    <a asp-action="ShowOnHome" asp-controller="CourseCategory" asp-area="Admin" asp-route-id="@item.CourseCategoryId" class="btn btn-outline-success"> Göster</a>
+                }
+            </td>
+            <td>
+                <button onclick="deleteCourseCategory(@item.CourseCategoryId)" class="btn btn-danger">Sil</button>
+                <a asp-area="Admin" asp-controller="CourseCategory" asp-action="UpdateCourseCategory" asp-route-id="@item.CourseCategoryId" class="btn btn-primary">Güncelle</a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+
+<a asp-area="Admin" asp-controller="CourseCategory" asp-action="CreateCourseCategory" class="btn btn-success">Yeni Kurs Kategori Ekle</a>
+
+
+<script>
+
+      function deleteCourseCategory(id){
+      Swal.fire({
+        title: "Silmek İstediğine Emin Misiniz ?",
+        text: "Bu işlemi geri alamazsınız !",
+        icon: "warning",
+        width: 450,
+        showCancelButton: true,
+        confirmButtonText: "Evet, Sil!",
+        cancelButtonText: "İptal"
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          Swal.fire({
+            title: "Silindi!",
+            text: "Silme işlemi başarıyla gerçekleşti.",
+            icon: "success",
+             width: 450,
+            confirmButtonText: "Tamam"
+          }).then(() => {
+            window.location.href = "/Admin/CourseCategory/DeleteCourseCategory/" + id;
+          });
+
+        }
+      });
+    }
+</script>

@@ -1,4 +1,4 @@
-﻿namespace OnlineEdu.DTO.DTOs.CourseCategoryDtos
+﻿namespace OnlineEdu.WebUI.DTOs.CourseCategoryDtos
 {
     public class UpdateCourseCategoryDto
     {

@@ -12,7 +12,6 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            _client.BaseAddress = new Uri("https://localhost:7029/api/");
             var values = await _client.GetFromJsonAsync<List<ResultAboutDto>>("abouts");
             return View(values);
         }
