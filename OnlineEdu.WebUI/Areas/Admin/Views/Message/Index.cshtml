@@ -1,8 +1,31 @@
-﻿
+﻿@model List<ResultMessageDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Mesaj Listesi";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
-<h1>Index</h1>
-
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Gönderen Adı</th>
+        <th>Gönderen Email</th>
+        <th>Konu</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>@count</td>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.Content</td>
+            <td>
+                <button onclick="deleteMessage(@item.MessageId)" class="btn btn-danger">Sil</button>
+                <a asp-area="Admin" asp-controller="Message" asp-action="MessageDetail" asp-route-id="@item.MessageId" class="btn btn-primary">Mesajı Aç</a>
+            </td>
+        </tr>
+    }
+</table>
+ 

@@ -21,28 +21,12 @@ namespace OnlineEdu.WebUI.Areas.Admin.Controllers
             await _client.DeleteAsync($"Messages/{id}");
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult CreateMessage()
+       
+        public async Task<IActionResult> MessageDetail(int id)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateMessage(CreateMessageDto createMessageDto)
-        {
-            await _client.PostAsJsonAsync("Messages", createMessageDto);
-            return RedirectToAction(nameof(Index));
-        }
-        public async Task<IActionResult> UpdateMessage(int id)
-        {
-            var values = await _client.GetFromJsonAsync<UpdateMessageDto>($"Messages/{id}");
+            var values = await _client.GetFromJsonAsync<ResultMessageDto>($"Messages/{id}");
             return View(values);
         }
-        [HttpPost]
-        public async Task<IActionResult> UpdateMessage(UpdateMessageDto updateMessageDto)
-        {
-            await _client.PutAsJsonAsync("Messages", updateMessageDto);
-            return RedirectToAction(nameof(Index));
-
-        }
+       
     }
 }
